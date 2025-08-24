@@ -1205,7 +1205,13 @@ variable "igw_tags" {
 ################################################################################
 
 variable "enable_nat_gateway" {
-  description = "Should be true if you want to provision NAT Gateways for each of your private networks"
+  description = "Should be true if you want to provision NAT Gateways. One for each of your private networks by default"
+  type        = bool
+  default     = false
+}
+
+variable "single_nat_gateway" {
+  description = "Should be true if you want to provision a single shared NAT Gateway across all of your private networks. Requires enable_nat_gateway to be true"
   type        = bool
   default     = false
 }
@@ -1214,12 +1220,6 @@ variable "nat_gateway_destination_cidr_block" {
   description = "Used to pass a custom destination route for private NAT Gateway. If not specified, the default 0.0.0.0/0 is used as a destination route"
   type        = string
   default     = "0.0.0.0/0"
-}
-
-variable "single_nat_gateway" {
-  description = "Should be true if you want to provision a single shared NAT Gateway across all of your private networks"
-  type        = bool
-  default     = false
 }
 
 variable "one_nat_gateway_per_az" {
